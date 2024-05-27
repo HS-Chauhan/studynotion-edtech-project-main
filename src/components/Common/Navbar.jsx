@@ -11,25 +11,6 @@ import { categories } from "../../services/apis"
 import { ACCOUNT_TYPE } from "../../utils/constants"
 import ProfileDropdown from "../core/Auth/ProfileDropdown"
 
-// const subLinks = [
-//   {
-//     title: "Python",
-//     link: "/catalog/python",
-//   },
-//   {
-//     title: "javascript",
-//     link: "/catalog/javascript",
-//   },
-//   {
-//     title: "web-development",
-//     link: "/catalog/web-development",
-//   },
-//   {
-//     title: "Android Development",
-//     link: "/catalog/Android Development",
-//   },
-// ]
-
 function Navbar() {
   const { token } = useSelector((state) => state.auth)
   const { user } = useSelector((state) => state.profile)
@@ -51,8 +32,6 @@ function Navbar() {
       setLoading(false)
     })()
   }, [])
-
-  // console.log("sub links", subLinks)
 
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname)
@@ -93,9 +72,12 @@ function Navbar() {
                           <>
                             {subLinks
                               ?.filter(
-                                (subLink) => subLink?.courses?.length > 0
+                                (subLink) =>
+                                  subLink &&
+                                  subLink.courses &&
+                                  subLink.courses.length > 0
                               )
-                              ?.map((subLink, i) => (
+                              .map((subLink, i) => (
                                 <Link
                                   to={`/catalog/${subLink.name
                                     .split(" ")
